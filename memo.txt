@@ -1,0 +1,50 @@
+>表領域の作成
+create tablespace [tablespacename] datafile [datafile path] size [teblespace size];
+
+>ユーザの作成
+create user [user name] identified by [password] default tablespace [tablespace name];
+
+>create session 権限の付与
+grant create session to [user name];
+
+>使用容量の制限値（quota）の設定
+--制限値を設定
+alter user [user name] quota [size K|M] on [tablespace name];
+--無制限に設定
+alter user [user name] quota unlimited on [tablespace name];
+
+>特定のユーザのdefault tablespaceの確認
+select username,default_tablespace from dba_users where username = '[user name];
+
+>table の DDLの確認
+desc [table name];
+
+>roleの確認
+select * from user_role_privs;
+select * from session_roles;
+select * from dba_role_privs;
+
+>roleの権限の確認
+select * from role_sys_privs;
+
+>roleをuserに付与
+grant [role name] to [user name];
+
+>データのexport
+--全てのオブジェクト
+exp [user name]/[password]@[service_name] file=[file path] full=y
+--指定したユーザスキーマのオブジェクト
+exp [user name]/[password]@[service_name] file=[file path] owner=[user name]
+--指定したテーブル
+exp [user name]/[password]@[service_name] file=[file path] rows=y tables=([table name],[table name2]...)
+
+>データのimport
+--オブジェクト作成時のエラーを無視する
+imp [user name]/[password]@[service_name] file=[file path] fromuser=[user name] touser=[user name] ignore=y
+--指定したテーブル
+imp [user name]/[password]@[service_name] file=[file path] fromuser=[user name] touser=[user name] tables=([table name],[table name2]...)
+--importせずにdmpファイル内を確認する(show=y)
+imp [user name]/[password]@[service_name] file=[file path] log=[log path] fromuser=[user name] touser=[user name] ignore=y show=y
+
+>テーブル一覧
+select table_name,tablespace_name,status from user_tables;
