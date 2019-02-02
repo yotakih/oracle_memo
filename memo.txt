@@ -16,6 +16,12 @@ alter user [user name] quota unlimited on [tablespace name];
 >特定のユーザのdefault tablespaceの確認
 select username,default_tablespace from dba_users where username = '[user name];
 
+>特定のuserのtableとtableのtablespaceを確認
+select table_name,tablespace_name from dba_users where owner='[user name]';
+
+>tablespace_name,dbfの確認
+select tablespace_name,file_name,bytes from dba_data_files where tablespace_name='[tablespace name]';
+
 >table の DDLの確認
 desc [table name];
 
