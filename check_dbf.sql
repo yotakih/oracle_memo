@@ -6,6 +6,7 @@ col tablespace_name format a10
 col file_name       format a35
 col status          format a10
 col mbytes          format 9,999,990
+col mmaxbytes       format 9,999,990
 col incre           format 9,999,990
 col autoextensible  format a5
 col online_status   format a6
@@ -15,6 +16,7 @@ select
   file_name,
   status,
   bytes/1024/1024 mbytes,
+	maxbytes/1024/1024 mmaxbytes,
   increment_by,
   autoextensible,
   online_status

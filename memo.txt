@@ -1,5 +1,5 @@
 >表領域の作成
-create tablespace [tablespacename] datafile [datafile path] size [teblespace size];
+create tablespace [tablespacename] datafile [datafile path] size [teblespace size] autoextend [on | off];
 
 >ユーザの作成
 create user [user name] identified by [password] default tablespace [tablespace name];
@@ -14,7 +14,7 @@ alter user [user name] quota [size K|M] on [tablespace name];
 alter user [user name] quota unlimited on [tablespace name];
 
 >特定のユーザのdefault tablespaceの確認
-select username,default_tablespace from dba_users where username = '[user name];
+select username,default_tablespace from dba_users where username = '[user name]';
 
 >特定のuserのtableとtableのtablespaceを確認
 select table_name,tablespace_name from dba_users where owner='[user name]';
